@@ -151,12 +151,12 @@ function queryRegion (region) {
         let pob_find = poblacion.find(e => e.ccaa === region).poblacion
         let pob_Region = (typeof pob_find !== 'undefined') ? formatearNummero(pob_find) : '...'
         // + inf.
-        let confirmados = reg.today_new_confirmed
-        let muertes = reg.today_new_deaths
-        let uci = reg.today_new_intensive_care
-        let casos_abiertos = reg.today_new_open_cases
-        let recuperados = reg.today_new_recovered
-        let hospitalizados = reg.today_new_total_hospitalised_patients
+        let confirmados = formatearNummero(reg.today_new_confirmed)
+        let muertes = formatearNummero(reg.today_new_deaths)
+        let uci = formatearNummero(reg.today_new_intensive_care)
+        let casos_abiertos = formatearNummero(reg.today_new_open_cases)
+        let recuperados = formatearNummero(reg.today_new_recovered)
+        let hospitalizados = formatearNummero(reg.today_new_total_hospitalised_patients)
         // Añadimos el html al DOM #div_comunidad
         html += `
           <div class="provincia">
