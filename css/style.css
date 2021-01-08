@@ -61,7 +61,7 @@ div.provincia ul li span {
   float: right;
   padding-right: 8px;
 }
-.no-visible { display: none; }
+.no-visible { display: none !important; }
 div.n_personas, div.prob {
   display: inline-block;
   border: 1px solid #3282b8;
@@ -74,6 +74,17 @@ div.n_personas, div.prob {
 }
 .prob.prob_n {
   border: 1px solid #ffffff;
+}
+
+div.mas_info {
+  width: 250px;
+  margin: -15px auto 10px;
+  text-align: right;
+  font-size: 11px;
+  color: #3282b8;
+}
+div.mas_info span{
+  cursor: pointer;
 }
 
 /* Slider */

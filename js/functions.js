@@ -2,11 +2,12 @@ const url_narrativa = 'https://api.covid19tracking.narrativa.com/api'
 const html_contenido = document.getElementById('div_contenido')
 const select_comunidad = document.getElementById('sel_comunidad')
 const div_comunidad = document.getElementById('div_comunidad')
+const sp_poblacion = document.getElementById('sp_poblacion')
 const range = 3
 const range_max = 150
 
 // FUENTE: https://www.ine.es/index.htm datos actualizados para el año 2020 //datos anteriores del 2019
-const poblacion = [
+let poblacion = [
   { ccaa: 'andalucia', poblacion:  8476718}, //8414240
   { ccaa: 'aragon', poblacion:  1330445}, //1319291
   { ccaa: 'asturias', poblacion:  1018775}, //1022800
@@ -40,6 +41,12 @@ select_comunidad.addEventListener('change', (event) => {
     sin_datos('Comunidad Autónoma', '...')
   }
 })
+
+function verInfo () {
+  let div_verInfo = document.getElementById('div_verInfo')
+  div_verInfo.classList.toggle('no-visible')
+}
+
 
 function spiner () {
   let html = `
@@ -140,6 +147,16 @@ function queryRegion (region) {
         let simbolo_confirmed_14d = formatearNummero(reg_14d.today_confirmed)
         let simbolo_ia_7d = formatearNummero(ia_7d.toFixed(3))
         let simbolo_ia_14d = formatearNummero(ia_14d.toFixed(3))
+        // Obtenemos la población de la comunidad
+        let pob_find = poblacion.find(e => e.ccaa === region).poblacion
+        let pob_Region = (typeof pob_find !== 'undefined') ? formatearNummero(pob_find) : '...'
+        // + inf.
+        let confirmados = reg.today_new_confirmed
+        let muertes = reg.today_new_deaths
+        let uci = reg.today_new_intensive_care
+        let casos_abiertos = reg.today_new_open_cases
+        let recuperados = reg.today_new_recovered
+        let hospitalizados = reg.today_new_total_hospitalised_patients
         // Añadimos el html al DOM #div_comunidad
         html += `
           <div class="provincia">
@@ -153,6 +170,23 @@ function queryRegion (region) {
             <ul>
               <li>IA 7d: <span>${simbolo_ia_7d}</span></li>
               <li>IA 14d: <span>${simbolo_ia_14d}</span></li>
+            </ul>
+            <ul>
+              <li>Población: <span>${pob_Region}</span></li>
+            </ul>
+          </div>
+          <div id="div_masInfo" class="mas_info">
+            <span class="par-title" onclick="verInfo()">+ inf.</span>
+          </div>
+          <div id="div_verInfo" class="no-visible provincia">
+            <p>Nuevos Hoy</p>
+            <ul>
+              <li>Confirmados: <span>${confirmados}</span></li>
+              <li>Muertes: <span>${muertes}</span></li>
+              <li>UCI: <span>${uci}</span></li>
+              <li>Casos abiertos: <span>${casos_abiertos}</span></li>
+              <li>Recuperados: <span>${recuperados}</span></li>
+              <li>Hospitalizados: <span>${hospitalizados}</span></li>
             </ul>
           </div>
         `
