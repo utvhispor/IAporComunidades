@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>Porcentaje Riesgos [IA]</title>
+  <link rel="shortcut icon" type="image/ico" href="img/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h4 class="title">
+      <img src="img/UTV_Logo.png" />
+      <span>Porcentaje Riesgos</span>
+      <br />
+      <span>[IA] por CCAA</span>
+    </h4>
+    <div id="div_contenido">
+      <h3>Selecciona Comunidad Autónoma</h3>
+      <select id="sel_comunidad" change="handleComunidad">
+        <option value="select_region">Selecciona comunidad</option>
+      </select>
+      <div id="div_comunidad">
+        <div class="provincia">
+          <p>Comunidad Autónoma</p>
+          <ul>
+            <li>Confirmados: <span>...</span></li>
+            <li>Confirmados 7d: <span>...</span></li>
+            <li>Confirmados 14d: <span>...</span></li>
+          </ul>
+          <hr />
+          <ul>
+            <li>IA 7d: <span>...</span></li>
+            <li>IA 14d: <span>...</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="fuentes">
+        <p>
+          * Los datos para los cálculos se han obtenido de la API
+          <a href="https://www.narrativa.com" target="_blank">
+            narrativa.com
+          </a>
+        </p>
+        <p>
+          * Las fórmulas para realizar la distribución binomial se han sacado de
+          <a href="https://www.estadisticaparatodos.es/software/javascript.html" target="_blank">
+            estadisticaparatodos.es
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/functions.js"></script>
+</body>
+</html>
