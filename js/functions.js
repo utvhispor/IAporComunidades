@@ -6,7 +6,7 @@ const sp_poblacion = document.getElementById('sp_poblacion')
 const range = 3
 const range_max = 150
 
-// FUENTE: https://www.ine.es/index.htm datos actualizados para el año 2020 //datos anteriores del 2019
+// FUENTE: https://www.ine.es/index.htm datos actualizados para el año 2020 //datos del 2019
 let poblacion = [
   { ccaa: 'andalucia', poblacion:  8476718}, //8414240
   { ccaa: 'aragon', poblacion:  1330445}, //1319291
@@ -29,7 +29,7 @@ let poblacion = [
   { ccaa: 'melilla', poblacion:  84496} //86487
 ]
 //
-let poblacion_ine = []
+// let poblacion_ine = []
 
 document.addEventListener('DOMContentLoaded', initFunction())
 
@@ -75,6 +75,7 @@ function spiner () {
 }
 
 function initFunction () {
+  /*
   fetch('http://servicios.ine.es/wstempus/js/es/DATOS_TABLA/36191')
   .then(function(response) {
     return response.text()
@@ -85,6 +86,7 @@ function initFunction () {
   .catch(function(error) {
     console.log('Request failed', error)
   })
+  */
   let query = '/countries/spain/regions'
   let req = `${url_narrativa}${query}`
   fetch(req)
