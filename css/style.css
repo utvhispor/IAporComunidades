@@ -62,6 +62,10 @@ div.provincia ul li span {
   padding-right: 8px;
 }
 .no-visible { display: none !important; }
+#div_verInfo {
+  width: 250px;
+  margin: 24px 16px;
+}
 div.n_personas, div.prob {
   display: inline-block;
   border: 1px solid #3282b8;

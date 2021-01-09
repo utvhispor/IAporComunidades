@@ -142,22 +142,22 @@ function queryRegion (region) {
         let i14dias = parseInt(reg_14d.today_confirmed)
         let ia_14d = ((iHoy - i14dias) / nHabitantes) * 100000
         // Formateamos los números
-        let simbolo_confirmed = formatearNummero(reg.today_confirmed)
-        let simbolo_confirmed_7d = formatearNummero(reg_7d.today_confirmed)
-        let simbolo_confirmed_14d = formatearNummero(reg_14d.today_confirmed)
-        let simbolo_ia_7d = formatearNummero(ia_7d.toFixed(3))
-        let simbolo_ia_14d = formatearNummero(ia_14d.toFixed(3))
+        let simbolo_confirmed = formatearNumero(reg.today_confirmed)
+        let simbolo_confirmed_7d = formatearNumero(reg_7d.today_confirmed)
+        let simbolo_confirmed_14d = formatearNumero(reg_14d.today_confirmed)
+        let simbolo_ia_7d = formatearNumero(ia_7d.toFixed(3))
+        let simbolo_ia_14d = formatearNumero(ia_14d.toFixed(3))
         // Obtenemos la población de la comunidad
         let pob_find = poblacion.find(e => e.ccaa === region).poblacion
-        let pob_Region = (typeof pob_find !== 'undefined') ? formatearNummero(pob_find) : '...'
+        let pob_Region = (typeof pob_find !== 'undefined') ? formatearNumero(pob_find) : '...'
         // + inf.
-        let confirmados = formatearNummero(reg.today_new_confirmed)
-        let muertes = formatearNummero(reg.today_new_deaths)
-        let uci = formatearNummero(reg.today_new_intensive_care)
-        let casos_abiertos = formatearNummero(reg.today_new_open_cases)
-        let recuperados = formatearNummero(reg.today_new_recovered)
-        let hospitalizados = formatearNummero(reg.today_new_total_hospitalised_patients)
-        // Añadimos el html al DOM #div_comunidad
+        let confirmados = formatearNumero(reg.today_new_confirmed)
+        let muertes = formatearNumero(reg.today_new_deaths)
+        let uci = formatearNumero(reg.today_new_intensive_care)
+        let casos_abiertos = formatearNumero(reg.today_new_open_cases)
+        let recuperados = formatearNumero(reg.today_new_recovered)
+        let hospitalizados = formatearNumero(reg.today_new_total_hospitalised_patients)
+        // Añadimos el html los resultados de la provincia
         html += `
           <div class="provincia">
             <p>${reg.name_es} <span>[${hoy_html}]<span></p>
@@ -178,7 +178,11 @@ function queryRegion (region) {
           <div id="div_masInfo" class="mas_info">
             <span class="par-title" onclick="verInfo()">+ inf.</span>
           </div>
-          <div id="div_verInfo" class="no-visible provincia">
+          `
+        html += `<div id="div_verInfo" class="no-visible">` // Creamos div #div_verInfo
+          // Añadimos el html los datos del día de hoy de la provincia
+        html += `
+          <div class="provincia">
             <p>Nuevos Hoy</p>
             <ul>
               <li>Confirmados: <span>${confirmados}</span></li>
@@ -190,9 +194,31 @@ function queryRegion (region) {
             </ul>
           </div>
         `
+        // Añadimos el html los datos de las regiones de la privincia
+        reg.sub_regions.forEach(e => {
+          let sub_regions_confirmados = (Number.isInteger(e.today_new_confirmed)) ? formatearNumero(e.today_new_confirmed) : '...'
+          let sub_regions_muertes = (Number.isInteger(e.today_new_deaths)) ? formatearNumero(e.today_new_deaths) : '...'
+          let sub_regions_uci = (Number.isInteger(e.today_new_intensive_care)) ? formatearNumero(e.today_new_intensive_care) : '...'
+          let sub_regions_recuperados = (Number.isInteger(e.today_new_recovered)) ? formatearNumero(e.today_new_recovered) : '...'
+          let sub_regions_hospitalizados = (Number.isInteger(e.today_new_total_hospitalised_patients)) ? formatearNumero(e.today_new_total_hospitalised_patients) : '...'
+          html += `
+            <div class="provincia">
+              <p>${e.name}</p>
+              <ul>
+                <li>Confirmados: <span>${sub_regions_confirmados}</span></li>
+                <li>Muertes: <span>${sub_regions_muertes}</span></li>
+                <li>UCI: <span>${sub_regions_uci}</span></li>
+                <li>Recuperados: <span>${sub_regions_recuperados}</span></li>
+                <li>Hospitalizados: <span>${sub_regions_hospitalizados}</span></li>
+              </ul>
+            </div>
+          `
+        })
+        html += `</div>` // Cerramos div #div_veriInfo
         let list_ia = [ia_7d, ia_14d]
         html += `<hr />`
         html += tablaProv(list_ia)
+        // Añadimos el html al DOM #div_comunidad
         div_comunidad.innerHTML = `${html}`
         slider()
       }).catch(function(error) {
@@ -243,8 +269,8 @@ function slider() {
     output.innerHTML = this.value
     let simbolo_ia0 = calcularProb(ia0.innerHTML, this.value)
     let simbolo_ia1 = calcularProb(ia1.innerHTML, this.value)
-    ia7d.innerHTML = `${formatearNummero(simbolo_ia0)}%`
-    ia14d.innerHTML = `${formatearNummero(simbolo_ia1)}%`
+    ia7d.innerHTML = `${formatearNumero(simbolo_ia0)}%`
+    ia14d.innerHTML = `${formatearNumero(simbolo_ia1)}%`
   }
 }
 // Calcular la probabilidad del ia para N personas
@@ -280,8 +306,8 @@ function tablaProv(list_ia) {
       (N, index_N) => {
         let in_ac = parseFloat(ia).toFixed(3)
         let prob = calcularProb(ia, N)
-        let simbolo_in_ac = formatearNummero(in_ac)
-        let simbolo_prob = formatearNummero(prob)
+        let simbolo_in_ac = formatearNumero(in_ac)
+        let simbolo_prob = formatearNumero(prob)
         html += (index_N === 0) ? `<div class='no-visible' id='calc_ia_${index_ia}'>${in_ac}</div>` : ``
         html += (index_N === 0) ? `<br /><div class='prob prob_ia'>${simbolo_in_ac}</div>` : ``
         html += (index_N === 0) ? `<div id="in_prob_${index_ia}" class='prob calculado'>${simbolo_prob}%</div>` : `<div class='prob'>${simbolo_prob}%</div>`
@@ -324,8 +350,8 @@ function formatearFecha(x, y) {
   })
 }
 
-// formatearNummero(123456779.18) // retorna "123.456.779,18"
-function formatearNummero (num) {
+// formatearNumero(123456779.18) // retorna "123.456.779,18"
+function formatearNumero (num) {
   let separador = '.'
   let sepDecimal = ','
   let splitStr = num.toString().split('.')
