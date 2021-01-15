@@ -60,7 +60,7 @@ function spiner () {
           <div></div>
         </div>
       </div>
-      <hr />
+      <p class="title_ia">[IA] Incidencia Acumulada a 7 y 14 días</p>
       <div class="ellipsis_ia">
         <div class="lds-ellipsis">
           <div></div>
@@ -147,8 +147,8 @@ function queryRegion (region) {
         let simbolo_confirmed = formatearNumero(reg.today_confirmed)
         let simbolo_confirmed_7d = formatearNumero(reg_7d.today_confirmed)
         let simbolo_confirmed_14d = formatearNumero(reg_14d.today_confirmed)
-        let simbolo_ia_7d = formatearNumero(ia_7d.toFixed(3))
-        let simbolo_ia_14d = formatearNumero(ia_14d.toFixed(3))
+        let simbolo_ia_7d = formatearNumero(ia_7d.toFixed(2))
+        let simbolo_ia_14d = formatearNumero(ia_14d.toFixed(2))
         // Obtenemos la población de la comunidad
         let pob_find = poblacion.find(e => e.ccaa === region).poblacion
         let pob_Region = (typeof pob_find !== 'undefined') ? formatearNumero(pob_find) : '...'
@@ -168,7 +168,7 @@ function queryRegion (region) {
               <li>Confirmados 7d: <span>${simbolo_confirmed_7d}</span></li>
               <li>Confirmados 14d: <span>${simbolo_confirmed_14d}</span></li>
             </ul>
-            <hr />
+            <p class="title_ia">[IA] Incidencia Acumulada a 7 y 14 días</p>
             <ul>
               <li>IA 7d: <span>${simbolo_ia_7d}</span></li>
               <li>IA 14d: <span>${simbolo_ia_14d}</span></li>
@@ -247,7 +247,7 @@ function sin_datos (region, val) {
         <li>Confirmados 7d: <span>${val}</span></li>
         <li>Confirmados 14d: <span>${val}</span></li>
       </ul>
-      <hr />
+      <p class="title_ia">[IA] Incidencia Acumulada a 7 y 14 días</p>
       <ul>
         <li>IA 7d: <span>${val}</span></li>
         <li>IA 14d: <span>${val}</span></li>
@@ -288,6 +288,9 @@ function tablaProv(list_ia) {
   // Creamos el DOM para el input type range
   let html = `
     <h3>Selecciona nº de personas</h3>
+    <p class="tit_info">
+      Aumenta el nº de personas reunidas para ver cual sería el porcentaje de riesgo de ser contagiado.
+    </p>
     <div class="slidecontainer">
       <span id='range_min'>${range}</span>
       <input type="range" min="${range}" max="${range_max}" value="${range}" class="slider" id="myRange">

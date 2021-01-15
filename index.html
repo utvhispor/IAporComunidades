@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-  <title>Porcentaje Riesgos [IA]</title>
+  <title>[IA] Porcentaje Riesgos</title>
   <link rel="shortcut icon" type="image/ico" href="img/favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -22,12 +22,15 @@
   <div class="container">
     <h4 class="title">
       <img src="img/UTV_Logo.png" />
-      <span>Porcentaje Riesgos</span>
-      <br />
       <span>[IA] por CCAA</span>
+      <br />
+      <span>Porcentaje Riesgos</span>
     </h4>
     <div id="div_contenido">
       <h3>Selecciona Comunidad Autónoma</h3>
+      <p class="tit_info">
+          Elige la CCAA para mostrar el total de Confirmados a día de hoy, a 7 y 14 días.
+      </p>
       <select id="sel_comunidad" change="handleComunidad">
         <option value="select_region">Selecciona comunidad</option>
       </select>
@@ -39,7 +42,7 @@
             <li>Confirmados 7d: <span>...</span></li>
             <li>Confirmados 14d: <span>...</span></li>
           </ul>
-          <hr />
+          <p class="title_ia">[IA] Incidencia Acumulada a 7 y 14 días</p>
           <ul>
             <li>IA 7d: <span>...</span></li>
             <li>IA 14d: <span>...</span></li>

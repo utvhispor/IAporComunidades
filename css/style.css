@@ -19,6 +19,16 @@ h4.title img {
 .title span {
   display: inline-block;
 }
+.tit_info {
+  margin-top: -11px;
+  font-size: 11px;
+  color: #999999;
+}
+.title_ia{
+  font-size: 9px;
+  border-top: 1px solid #3282b8;
+  border-radius: 0 !important;  
+}
 .footer {
   padding: 8px 24px;
 }
