@@ -296,7 +296,7 @@ function queryRegion (region) {
         html += `</div>` // Cerramos div #div_veriInfo
         let list_ia = [ia_7d, ia_14d]
         html += `<hr />`
-        html += tablaProv(list_ia)
+        html += tablaProv(reg.name_es, list_ia)
         // Añadimos el html al DOM #div_comunidad
         div_comunidad.innerHTML = `${html}`
         slider()
@@ -361,12 +361,12 @@ function calcularProb (ia, N) {
   return prob
 }
 
-function tablaProv(list_ia) {
+function tablaProv(region, list_ia) {
   // Creamos el DOM para el input type range
   let html = `
     <h3>Selecciona nº de personas</h3>
     <p class="tit_info">
-      Aumenta el nº de personas reunidas para ver cual sería el porcentaje de riesgo de ser contagiado.
+      Aumenta el nº de personas reunidas para ver cual sería el porcentaje de riesgo a ser contagiado en ${region}.
     </p>
     <div class="slidecontainer">
       <span id='range_min'>${range}</span>
