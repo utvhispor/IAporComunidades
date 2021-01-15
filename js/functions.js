@@ -434,9 +434,10 @@ function formatearFecha(x, y) {
 
 // formatearNumero(123456779.18) // retorna "123.456.779,18"
 function formatearNumero (num) {
+  let n = (num === null) ? 0 : num
   let separador = '.'
   let sepDecimal = ','
-  let splitStr = num.toString().split('.')
+  let splitStr = n.toString().split('.')
   let splitLeft = splitStr[0]
   let splitRight = splitStr.length > 1 ? sepDecimal + splitStr[1] : ''
   let regx = /(\d+)(\d{3})/
