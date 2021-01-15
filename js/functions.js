@@ -45,8 +45,16 @@ select_comunidad.addEventListener('change', (event) => {
 function verInfo () {
   let div_verInfo = document.getElementById('div_verInfo')
   div_verInfo.classList.toggle('no-visible')
+  let div_verInfo_es = document.getElementById('div_verInfo_es')
+  div_verInfo_es.classList.add('no-visible')
 }
 
+function verInfoEs () {
+  let div_verInfo_es = document.getElementById('div_verInfo_es')
+  div_verInfo_es.classList.toggle('no-visible')
+  let div_verInfo = document.getElementById('div_verInfo')
+  div_verInfo.classList.add('no-visible')
+}
 
 function spiner () {
   let html = `
@@ -123,6 +131,30 @@ function queryRegion (region) {
     let reg = data.dates[hoy].countries.Spain.regions[0]
     let query_7d = `/${siete_dias}/country/spain/region/${region}`
     let req_7d = `${url_narrativa}${query_7d}`
+    // + inf España.
+    let reg_es = data.dates[hoy].countries.Spain
+    let confirmados_tot_es = formatearNumero(reg_es.today_confirmed)
+    let muertes_tot_es = formatearNumero(reg_es.today_deaths)
+    let uci_tot_es = formatearNumero(reg_es.today_intensive_care)
+    let casos_tot_abiertos_es = formatearNumero(reg_es.today_open_cases)
+    let recuperados_tot_es = formatearNumero(reg_es.today_recovered)
+    let hospitalizados_tot_es = formatearNumero(reg_es.today_total_hospitalised_patients)
+    let confirmados_es = formatearNumero(reg_es.today_new_confirmed)
+    let muertes_es = formatearNumero(reg_es.today_new_deaths)
+    let uci_es = formatearNumero(reg_es.today_new_intensive_care)
+    let casos_abiertos_es = formatearNumero(reg_es.today_new_open_cases)
+    let recuperados_es = formatearNumero(reg_es.today_new_recovered)
+    let hospitalizados_es = formatearNumero(reg_es.today_new_total_hospitalised_patients)
+    // + inf España [Mundial/World].
+    let reg_w = data.total
+    let confirmados_tot_w = formatearNumero(reg_w.today_confirmed)
+    let muertes_tot_w = formatearNumero(reg_w.today_deaths)
+    let casos_tot_abiertos_w = formatearNumero(reg_w.today_open_cases)
+    let recuperados_tot_w = formatearNumero(reg_w.today_recovered)
+    let confirmados_w = formatearNumero(reg_w.today_new_confirmed)
+    let muertes_w = formatearNumero(reg_w.today_new_deaths)
+    let casos_abiertos_w = formatearNumero(reg_w.today_new_open_cases)
+    let recuperados_w = formatearNumero(reg_w.today_new_recovered)
     fetch(req_7d).then(function(response) {
       return response.text()
     }).then(function(text) {
@@ -152,7 +184,7 @@ function queryRegion (region) {
         // Obtenemos la población de la comunidad
         let pob_find = poblacion.find(e => e.ccaa === region).poblacion
         let pob_Region = (typeof pob_find !== 'undefined') ? formatearNumero(pob_find) : '...'
-        // + inf.
+        // + inf CCAA.
         let confirmados = formatearNumero(reg.today_new_confirmed)
         let muertes = formatearNumero(reg.today_new_deaths)
         let uci = formatearNumero(reg.today_new_intensive_care)
@@ -178,14 +210,59 @@ function queryRegion (region) {
             </ul>
           </div>
           <div id="div_masInfo" class="mas_info">
-            <span class="par-title" onclick="verInfo()">+ inf.</span>
+            <span class="par-title par-title_es" onclick="verInfoEs()">+ inf. España/Mundial</span>
+            <span class="par-title" onclick="verInfo()">+ inf. CCAA</span>
           </div>
           `
+        html += `<div id="div_verInfo_es" class="no-visible">` // Creamos div #div_verInfo_es
+        html += `
+          <div class="provincia">
+            <p>España Totales</p>
+            <ul>
+              <li>Confirmados: <span>${confirmados_tot_es}</span></li>
+              <li>Muertes: <span>${muertes_tot_es}</span></li>
+              <li>UCI: <span>${uci_tot_es}</span></li>
+              <li>Casos abiertos: <span>${casos_tot_abiertos_es}</span></li>
+              <li>Recuperados: <span>${recuperados_tot_es}</span></li>
+              <li>Hospitalizados: <span>${hospitalizados_tot_es}</span></li>
+            </ul>
+            <p class="segundo-titulo">España Hoy <span>[${hoy_html}]<span></p>
+            <ul>
+              <li>Confirmados: <span>${confirmados_es}</span></li>
+              <li>Muertes: <span>${muertes_es}</span></li>
+              <li>UCI: <span>${uci_es}</span></li>
+              <li>Casos abiertos: <span>${casos_abiertos_es}</span></li>
+              <li>Recuperados: <span>${recuperados_es}</span></li>
+              <li>Hospitalizados: <span>${hospitalizados_es}</span></li>
+            </ul>
+          </div>
+        `
+        html += `
+          <div class="provincia">
+            <p>Totales Mundial</p>
+            <ul>
+              <li>Confirmados: <span>${confirmados_tot_w}</span></li>
+              <li>Muertes: <span>${muertes_tot_w}</span></li>
+              <li>Casos abiertos: <span>${casos_tot_abiertos_w}</span></li>
+              <li>Recuperados: <span>${recuperados_tot_w}</span></li>
+            </ul>
+            <p class="segundo-titulo">Hoy Mundial <span>[${hoy_html}]<span></p>
+            <ul>
+              <li>Confirmados: <span>${confirmados_w}</span></li>
+              <li>Muertes: <span>${muertes_w}</span></li>
+              <li>Casos abiertos: <span>${casos_abiertos_w}</span></li>
+              <li>Recuperados: <span>${recuperados_w}</span></li>
+            </ul>
+          </div>
+        `
+        html += `</div>` // Cerramos div #div_veriInfo_es
+
+                
         html += `<div id="div_verInfo" class="no-visible">` // Creamos div #div_verInfo
           // Añadimos el html los datos del día de hoy de la provincia
         html += `
           <div class="provincia">
-            <p>Nuevos Hoy</p>
+            <p>${reg.name_es} Hoy</p>
             <ul>
               <li>Confirmados: <span>${confirmados}</span></li>
               <li>Muertes: <span>${muertes}</span></li>

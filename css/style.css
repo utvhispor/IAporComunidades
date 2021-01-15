@@ -53,6 +53,9 @@ div.provincia {
   margin: 24px 16px;
   box-shadow: 0px 5px 10px #999999;
 }
+div.provincia ul {
+  font-size: 12px;
+}
 div.provincia p {
   border-bottom: 1px solid #3282b8;
   color: #3282b8;
@@ -61,6 +64,10 @@ div.provincia p {
   border-radius: 8px 8px 0 0;
   padding: 8px;
   position: relative;
+}
+div.provincia p.segundo-titulo {
+  border-top: 1px solid #3282b8;
+  border-radius: 0;
 }
 div.provincia p span{
   font-size: 9px;
@@ -96,11 +103,15 @@ div.mas_info {
   text-align: right;
   font-size: 11px;
   color: #3282b8;
+  position: relative;
 }
 div.mas_info span{
   cursor: pointer;
 }
-
+span.par-title.par-title_es {
+  position: absolute;
+  left: 0;
+}
 /* Slider */
 .calculado {
   color: #3282b8;
