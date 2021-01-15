@@ -79,7 +79,7 @@ div.provincia ul li span {
   padding-right: 8px;
 }
 .no-visible { display: none !important; }
-#div_verInfo {
+#div_verInfo_es, #div_verInfo {
   width: 282px;
   margin: 0 auto;
 }
